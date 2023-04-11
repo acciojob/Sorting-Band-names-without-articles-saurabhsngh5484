@@ -1,31 +1,32 @@
-//your code here
+let arr = ['Tajmahal', 'Victoria Memorial', 'The Virupaksha Temple'];
+let updatedList = arr.map((element) => {
+	// ["a", "some", "one"]
+	let words = element.split(" ") ;
+	let updatedString = words.reduce((prev, current, index) => {
+		if(current != "The" && current != "an" && current != "a"){
+			return prev + " " + current ;
+		}
+		return prev ;
+	}, "")
 
-let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
+	return updatedString ;
+}) ;
+let mp = {} ; // {"some one" : "a some one"}
+updatedList.forEach( (element, index) => {
+	mp[element] = arr[index] ;
+});
+// ["some one" , "mno abc" , "abc kh"]
 
-function removeArticle(str){
-	let words = str.split(' ');
-	
-	if(words.length > 1 && (words[0].toLowerCase()==='a'
-							|| words[0].toLowerCase()==='an'
-							|| words[0].toLowerCase()==='the'
-						   )
-		){
-		words.splice(0,1);
-	}
-	return words.join(" ");
-}
+updatedList.sort(); 
 
-touristSpots.sort((a,b)=>{
-	const bandA = removeArticle(a);
-	const bandB = removeArticle(b);
-
-	return bandA.localeCompare(bandB);
+let finalAns = updatedList.map((element) => {
+    return mp[element] ;
 })
 
-let ul = document.getElementById("band");
+const ul = document.getElementById("band")
 
-touristSpots.forEach(band => {
-	let li = document.createElement('li');
-	li.innerText = band;
-	ul.appendChild(li);
-});
+finalAns.forEach((item) => {
+	const li = document.createElement("li");
+	li.innerText = item ;
+	ul.append(li);
+})
